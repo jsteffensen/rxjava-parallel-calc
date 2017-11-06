@@ -1,5 +1,6 @@
 package com.c2_systems.benchmark;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -61,14 +62,8 @@ public class MyBenchmark implements Function<Integer, Integer> {
         final int cpu = parallelism;
         ints = new Integer[count];
         moreints = new Integer[count];
-        //Arrays.fill(ints, 777);
-
-        for(int i = 0; i<count; i++) {
-        	ints[i] = randomNum.nextInt(2);
-        }
-        for(int i = 0; i<count; i++) {
-        	moreints[i] = randomNum.nextInt(2);
-        }
+        Arrays.fill(ints, 777);
+        Arrays.fill(moreints, 777);
 
         Flowable<Integer> source = Flowable.fromArray(ints);
         Flowable<Integer> anothersource = Flowable.fromArray(moreints);
@@ -97,18 +92,12 @@ public class MyBenchmark implements Function<Integer, Integer> {
         consumer.await(count);
     }
 
-    public void other(Blackhole bh) {
-    	for(int i = 0; i<count; i++) {
-			Blackhole.consumeCPU(compute);
-		}
-    }
-
-    //@Benchmark
+    @Benchmark
     public void parallel(Blackhole bh) {
         subscribe(parallel, bh);
     }
 
-    //@Benchmark
+    @Benchmark
     public void notsoparallel(Blackhole bh) {
         subscribe(notsoparallel, bh);
     }
@@ -119,7 +108,7 @@ public class MyBenchmark implements Function<Integer, Integer> {
     }
 
 
-    //@Benchmark
+    @Benchmark
     public void oldschool(Blackhole bh) {
 
     	ExecutorService executor = Executors.newFixedThreadPool(parallelism);
@@ -138,7 +127,7 @@ public class MyBenchmark implements Function<Integer, Integer> {
 
     }
 
-    //@Benchmark
+    @Benchmark
     public void loopy(Blackhole bh) {
 
 		for(int i =0; i<ints.length; i++) {
