@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
+import org.openjdk.jmh.annotations.Fork;
 import org.openjdk.jmh.annotations.Measurement;
 import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.OutputTimeUnit;
@@ -25,7 +26,7 @@ import io.reactivex.schedulers.Schedulers;
 @BenchmarkMode(Mode.Throughput)
 @Warmup(iterations = 5)
 @Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-//@Fork(value = 1,jvmArgsAppend = { "-XX:MaxInlineLevel=20" })
+@Fork(value = 1,jvmArgsAppend = { "-XX:MaxInlineLevel=20" })
 @OutputTimeUnit(TimeUnit.SECONDS)
 @State(Scope.Thread)
 public class MyBenchmark implements Function<Integer, Integer> {
