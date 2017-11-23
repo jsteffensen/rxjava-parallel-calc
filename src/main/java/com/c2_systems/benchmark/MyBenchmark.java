@@ -38,7 +38,7 @@ public class MyBenchmark implements Function<Integer, Integer> {
     @Param({"50", "100", "250", "500", "1000"})
     public int compute;
 
-    @Param({"4"})
+    @Param({"8"})
     public int parallelism;
 
     Integer[] ints;
