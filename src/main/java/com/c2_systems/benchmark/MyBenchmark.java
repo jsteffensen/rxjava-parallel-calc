@@ -50,6 +50,8 @@ public class MyBenchmark implements Function<Integer, Integer> {
     Flowable<Integer> notsoparallel;
     Flowable<Integer> zippedparallel;
 
+    ExecutorService executor;
+
     @Override
     public Integer apply(Integer t) throws Exception {
         Blackhole.consumeCPU(compute);
@@ -68,6 +70,7 @@ public class MyBenchmark implements Function<Integer, Integer> {
         Flowable<Integer> source = Flowable.fromArray(ints);
         Flowable<Integer> anothersource = Flowable.fromArray(moreints);
 
+        executor = Executors.newFixedThreadPool(parallelism);
         parallel = source.parallel(cpu).runOn(Schedulers.computation()).map(this).sequential();
 
         notsoparallel = source.map(this);
@@ -109,8 +112,6 @@ public class MyBenchmark implements Function<Integer, Integer> {
 
     @Benchmark
     public void oldschool(Blackhole bh) {
-
-    	ExecutorService executor = Executors.newFixedThreadPool(parallelism);
 
     	try {
     		for(int i =0; i<ints.length; i++) {
