@@ -108,7 +108,7 @@ public class MyBenchmark implements Function<Integer, Integer> {
     }
 
 
-    @Benchmark
+    //@Benchmark
     public void oldschool(Blackhole bh) {
 
     	ExecutorService executor = Executors.newFixedThreadPool(parallelism);
