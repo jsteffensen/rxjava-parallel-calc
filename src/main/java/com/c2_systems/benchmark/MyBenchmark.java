@@ -25,8 +25,8 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 @BenchmarkMode(Mode.Throughput)
-@Warmup(iterations = 5)
-@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
+@Warmup(iterations = 10)
+@Measurement(iterations = 10, time = 1, timeUnit = TimeUnit.SECONDS)
 @Fork(value = 0)
 @OutputTimeUnit(TimeUnit.SECONDS)
 @State(Scope.Thread)
@@ -95,22 +95,22 @@ public class MyBenchmark implements Function<Integer, Integer> {
         consumer.await(count);
     }
 
-    //@Benchmark
+    @Benchmark
     public void parallel(Blackhole bh) {
         subscribe(parallel, bh);
     }
 
-    //@Benchmark
+    @Benchmark
     public void notsoparallel(Blackhole bh) {
         subscribe(notsoparallel, bh);
     }
 
-    //@Benchmark
+    @Benchmark
     public void zippedparallel(Blackhole bh) {
         subscribe(zippedparallel, bh);
     }
 
-    @Benchmark
+    //@Benchmark
     public void oldschool(Blackhole bh) {
 
     	try {
@@ -127,7 +127,7 @@ public class MyBenchmark implements Function<Integer, Integer> {
 
     }
 
-    //@Benchmark
+    @Benchmark
     public void loopy(Blackhole bh) {
 
 		for(int i =0; i<ints.length; i++) {
