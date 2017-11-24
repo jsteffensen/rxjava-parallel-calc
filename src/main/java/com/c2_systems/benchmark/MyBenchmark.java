@@ -120,7 +120,7 @@ public class MyBenchmark implements Function<Integer, Integer> {
         		});
         	}
     	} catch (Exception e) {
-            throw new IllegalStateException(e);
+            e.printStackTrace();
         } finally {
     		executor.shutdown();
     	}
