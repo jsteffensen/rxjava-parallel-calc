@@ -26,19 +26,19 @@ import io.reactivex.schedulers.Schedulers;
 
 @BenchmarkMode(Mode.Throughput)
 @Warmup(iterations = 10)
-@Measurement(iterations = 10, time = 1, timeUnit = TimeUnit.SECONDS)
+@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
 @Fork(value = 0)
 @OutputTimeUnit(TimeUnit.SECONDS)
 @State(Scope.Thread)
 public class MyBenchmark implements Function<Integer, Integer> {
 
-    @Param({"500", "1000", "2000"})
+    @Param({"2000"})
     public int count;
 
-    @Param({"1300", "1700", "2100", "2500"})
+    @Param({"1700"})
     public int compute;
 
-    @Param({"8"})
+    @Param({"1", "2", "4", "8", "16", "32", "64", "128", "256", "512", "1024"})
     public int parallelism;
 
     Integer[] ints;
@@ -100,12 +100,12 @@ public class MyBenchmark implements Function<Integer, Integer> {
         subscribe(parallel, bh);
     }
 
-    @Benchmark
+    //@Benchmark
     public void notsoparallel(Blackhole bh) {
         subscribe(notsoparallel, bh);
     }
 
-    @Benchmark
+    //@Benchmark
     public void zippedparallel(Blackhole bh) {
         subscribe(zippedparallel, bh);
     }
@@ -127,7 +127,7 @@ public class MyBenchmark implements Function<Integer, Integer> {
 
     }
 
-    @Benchmark
+    //@Benchmark
     public void loopy(Blackhole bh) {
 
 		for(int i =0; i<ints.length; i++) {
